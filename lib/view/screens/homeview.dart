@@ -54,11 +54,19 @@ class HomeView extends StatelessWidget {
           children: [
             GetBuilder<HomeController>(
                 init: HomeController(),
-                builder: (context) {
-                  return const SharedGridWidget();
+                builder: (controller) {
+                  return controller.state
+                      ? const Center(child: CircularProgressIndicator())
+                      : SharedGridWidget(
+                          wallpapers: controller.todaysList,
+                        );
                 }),
-            const SharedGridWidget(),
-            const SharedGridWidget(),
+            const SharedGridWidget(
+              wallpapers: [],
+            ),
+            const SharedGridWidget(
+              wallpapers: [],
+            ),
           ],
         ),
       ),

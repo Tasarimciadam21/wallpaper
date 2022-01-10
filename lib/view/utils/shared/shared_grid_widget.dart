@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:wallpaper/models/wallpaper.dart';
 import 'package:wallpaper/view/utils/helpers/color_helper.dart';
 
 class SharedGridWidget extends StatelessWidget {
-  const SharedGridWidget({Key? key}) : super(key: key);
+  final List<Wallpaper> wallpapers;
+  const SharedGridWidget({Key? key, required this.wallpapers})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,10 +20,17 @@ class SharedGridWidget extends StatelessWidget {
             childAspectRatio: 2 / 2.7,
           ),
           itemCount: 10,
-          itemBuilder: (context, index) => Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: pinkcolor,
+          itemBuilder: (context, index) => ClipRRect(
+                borderRadius: BorderRadius.circular(15),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+                    color: pinkcolor,
+                  ),
+                  child: Image.network(
+                    wallpapers[index].urls.small,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               )),
     );
