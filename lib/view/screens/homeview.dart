@@ -49,25 +49,37 @@ class HomeView extends StatelessWidget {
                 ),
               ]),
         ),
-        body: TabBarView(
-          physics: const BouncingScrollPhysics(),
-          children: [
-            GetBuilder<HomeController>(
-                init: HomeController(),
-                builder: (controller) {
-                  return controller.state
-                      ? const Center(child: CircularProgressIndicator())
-                      : SharedGridWidget(
-                          wallpapers: controller.todaysList,
-                        );
-                }),
-            const SharedGridWidget(
-              wallpapers: [],
-            ),
-            const SharedGridWidget(
-              wallpapers: [],
-            ),
-          ],
+        body: GetBuilder<HomeController>(
+          init: HomeController(),
+          initState: (_) {},
+          builder: (controller) {
+            return TabBarView(
+              physics: const BouncingScrollPhysics(),
+              children: [
+                controller.state
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SharedGridWidget(
+                        wallpapers: controller.todaysList,
+                      ),
+                controller.state
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SharedGridWidget(
+                        wallpapers: controller.popularList,
+                      ),
+                controller.state
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : SharedGridWidget(
+                        wallpapers: controller.oldestList,
+                      ),
+              ],
+            );
+          },
         ),
       ),
     );
