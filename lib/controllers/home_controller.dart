@@ -9,31 +9,31 @@ class HomeController extends BaseController {
   List<Wallpaper> popularList = [];
   List<Wallpaper> oldestList = [];
 
-  void getListOfToday() async {
-    setState(true);
+  Future<void> getListOfToday() async {
     todaysList = await _restApiService.convertJsonToObject(api + "&${1}");
-    setState(false);
   }
 
-  void getListOfPopular() async {
-    setState(true);
+  Future<void> getListOfPopular() async {
     popularList = await _restApiService
         .convertJsonToObject(api + "&${1}&order_by=popular");
-    setState(false);
   }
 
-  void getListOfOldest() async {
-    setState(true);
+  Future<void> getListOfOldest() async {
     oldestList = await _restApiService
         .convertJsonToObject(api + "&${1}&order_by=oldest");
+  }
+
+  void getllData() async {
+    setState(true);
+    await getListOfToday();
+    await getListOfPopular();
+    await getListOfOldest();
     setState(false);
   }
 
   @override
   void onInit() {
-    getListOfToday();
-    getListOfPopular();
-    getListOfOldest();
+    getllData();
     super.onInit();
   }
 }
