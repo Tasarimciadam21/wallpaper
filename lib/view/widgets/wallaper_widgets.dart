@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wallpaper/controllers/wallpaper_controller.dart';
+import 'package:wallpaper/models/wallpaper.dart';
 import 'package:wallpaper/view/utils/helpers/color_helper.dart';
 import 'package:wallpaper/view/utils/helpers/style_helper.dart';
 
 class SetButton extends StatelessWidget {
-  const SetButton({
-    Key? key,
-  }) : super(key: key);
+  final WallpaperController wallpaperController;
+  final Wallpaper wallpaper;
+  const SetButton(
+      {Key? key, required this.wallpaper, required this.wallpaperController})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +43,8 @@ class SetButton extends StatelessWidget {
                       ),
                       ListTile(
                         onTap: () {
+                          wallpaperController
+                              .setOnHomeScreen(wallpaper.urls.regular);
                           Get.back();
                         },
                         leading: const Icon(
@@ -52,6 +58,8 @@ class SetButton extends StatelessWidget {
                       ),
                       ListTile(
                         onTap: () {
+                          wallpaperController
+                              .setOnLockScreen(wallpaper.urls.regular);
                           Get.back();
                         },
                         leading: const Icon(
@@ -65,6 +73,8 @@ class SetButton extends StatelessWidget {
                       ),
                       ListTile(
                         onTap: () {
+                          wallpaperController
+                              .setOnHomeANDLOckScreen(wallpaper.urls.regular);
                           Get.back();
                         },
                         leading: const Icon(
