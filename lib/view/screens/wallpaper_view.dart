@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:wallpaper/controllers/favorite_controller.dart';
 import 'package:wallpaper/controllers/wallpaper_controller.dart';
 import 'package:wallpaper/models/wallpaper.dart';
 import 'package:wallpaper/view/utils/helpers/color_helper.dart';
@@ -56,12 +57,27 @@ class WallpaperView extends StatelessWidget {
                           wallpaper: wallpaper,
                           wallpaperController: controller,
                         ),
-                        CircleAvatar(
-                          backgroundColor: whitecolor,
-                          child: WallpaperViewButton(
-                              onPressed: () {},
-                              color: pinkcolor,
-                              iconData: Icons.favorite_border),
+                        GetBuilder<FavoriteContoller>(
+                          init: FavoriteContoller(),
+                          initState: (con) {
+                            Future.delayed(const Duration(seconds: 0))
+                                .then((value) {
+                              con.controller!.inTheList(wallpaper.urls.regular);
+                            });
+                          },
+                          builder: (controller) {
+                            return CircleAvatar(
+                              backgroundColor: whitecolor,
+                              child: WallpaperViewButton(
+                                  onPressed: () {
+                                    controller.favoriteToggler(wallpaper);
+                                  },
+                                  color: pinkcolor,
+                                  iconData: controller.isFavorite
+                                      ? Icons.favorite
+                                      : Icons.favorite_border),
+                            );
+                          },
                         )
                       ],
                     );
