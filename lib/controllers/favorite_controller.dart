@@ -35,9 +35,8 @@ class FavoriteContoller extends BaseController {
   }
 
   void favoriteToggler(Wallpaper data) {
-    print(isFavorite);
     isFavorite = !isFavorite;
-    print(isFavorite);
+
     if (isFavorite) {
       insertWallaperToTheList(data);
     } else {

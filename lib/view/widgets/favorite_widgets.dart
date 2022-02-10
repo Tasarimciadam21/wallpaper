@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wallpaper/controllers/favorite_controller.dart';
 import 'package:wallpaper/models/wallpaper.dart';
+import 'package:wallpaper/view/screens/wallpaper_view.dart';
 import 'package:wallpaper/view/utils/helpers/color_helper.dart';
 
 class FavoriteWidgets extends StatelessWidget {
@@ -33,9 +34,28 @@ class FavoriteWidgets extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final String key = keys[index];
                           final Wallpaper? wallpaper = box.get(key);
-                          return Container(
-                            color: pinkcolor,
-                            child: Image.network(wallpaper!.urls.regular),
+                          return GestureDetector(
+                            onTap: () {
+                              Get.to(() => WallpaperView(
+                                    wallpaper: wallpaper!,
+                                  ));
+                            },
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(15),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(15),
+                                  color: pinkcolor,
+                                ),
+                                child: Hero(
+                                  tag: wallpaper!.urls.regular,
+                                  child: Image.network(
+                                    wallpaper.urls.regular,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
                           );
                         });
               }),
