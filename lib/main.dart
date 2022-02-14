@@ -3,8 +3,6 @@ import 'package:get/get.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 import 'package:wallpaper/models/urls.dart';
 import 'package:wallpaper/view/screens/base_view.dart';
-
-import 'package:wallpaper/view/screens/homeview.dart';
 import 'package:wallpaper/view/utils/constants/const.dart';
 import 'models/wallpaper.dart';
 

@@ -62,6 +62,7 @@ class HomeView extends StatelessWidget {
                       )
                     : SharedGridWidget(
                         wallpapers: controller.todaysList,
+                        scrollController: controller.todaysScrollController,
                       ),
                 controller.state
                     ? const Center(
@@ -69,6 +70,7 @@ class HomeView extends StatelessWidget {
                       )
                     : SharedGridWidget(
                         wallpapers: controller.popularList,
+                        scrollController: controller.popularScrollController,
                       ),
                 controller.state
                     ? const Center(
@@ -76,6 +78,7 @@ class HomeView extends StatelessWidget {
                       )
                     : SharedGridWidget(
                         wallpapers: controller.oldestList,
+                        scrollController: controller.oldestScrollController,
                       ),
               ],
             );
