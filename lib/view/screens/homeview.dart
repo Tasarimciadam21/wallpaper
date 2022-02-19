@@ -5,6 +5,9 @@ import 'package:wallpaper/view/utils/helpers/color_helper.dart';
 import 'package:wallpaper/view/utils/helpers/style_helper.dart';
 import 'package:wallpaper/view/utils/shared/shared_grid_widget.dart';
 
+import '../../controllers/oldest_controller.dart';
+import '../../controllers/popular_controller.dart';
+
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -49,40 +52,52 @@ class HomeView extends StatelessWidget {
                 ),
               ]),
         ),
-        body: GetBuilder<HomeController>(
-          init: HomeController(),
-          initState: (_) {},
-          builder: (controller) {
-            return TabBarView(
-              physics: const BouncingScrollPhysics(),
-              children: [
-                controller.state
+        body: TabBarView(
+          physics: const BouncingScrollPhysics(),
+          children: [
+            GetBuilder<HomeController>(
+              init: HomeController(),
+              builder: (controller) {
+                return controller.state
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : SharedGridWidget(
                         wallpapers: controller.todaysList,
                         scrollController: controller.todaysScrollController,
-                      ),
-                controller.state
+                        isLoading: controller.bottomstate,
+                      );
+              },
+            ),
+            GetBuilder<PopularController>(
+              init: PopularController(),
+              builder: (controller) {
+                return controller.state
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : SharedGridWidget(
                         wallpapers: controller.popularList,
                         scrollController: controller.popularScrollController,
-                      ),
-                controller.state
+                        isLoading: false,
+                      );
+              },
+            ),
+            GetBuilder<OldestController>(
+              init: OldestController(),
+              builder: (controller) {
+                return controller.state
                     ? const Center(
                         child: CircularProgressIndicator(),
                       )
                     : SharedGridWidget(
                         wallpapers: controller.oldestList,
                         scrollController: controller.oldestScrollController,
-                      ),
-              ],
-            );
-          },
+                        isLoading: false,
+                      );
+              },
+            ),
+          ],
         ),
       ),
     );
