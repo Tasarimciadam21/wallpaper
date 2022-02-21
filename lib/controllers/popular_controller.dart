@@ -16,4 +16,38 @@ class PopularController extends BaseController {
         .convertJsonToObject(api + "&page=${1}&order_by=popular");
     setState(false);
   }
+
+  int popularPageNumber = 2;
+
+  void loadMoreData() {
+    popularScrollController.addListener(() async {
+      if (popularScrollController.position.pixels ==
+          popularScrollController.position.maxScrollExtent) {
+        await addMoreDataToTodaysList();
+      }
+    });
+  }
+
+  Future<void> addMoreDataToTodaysList() async {
+    setBottomState(true);
+    List<Wallpaper> wallpapers = [];
+    wallpapers = await _restApiService
+        .convertJsonToObject(api + "&page=$popularPageNumber&order_by=popular");
+    popularPageNumber++;
+    popularList.addAll(wallpapers);
+    setBottomState(false);
+  }
+
+  @override
+  void onInit() {
+    getListOfPopular();
+    loadMoreData();
+    super.onInit();
+  }
+
+  // @override
+  // void onClose() {
+  //   popularScrollController.dispose();
+  //   super.onClose();
+  // }
 }

@@ -4,6 +4,8 @@ import 'package:wallpaper/models/wallpaper.dart';
 import 'package:wallpaper/view/screens/wallpaper_view.dart';
 import 'package:wallpaper/view/utils/helpers/color_helper.dart';
 
+import '../../widgets/wallaper_widgets.dart';
+
 class SharedGridWidget extends StatelessWidget {
   final List<Wallpaper> wallpapers;
   final ScrollController scrollController;
@@ -20,6 +22,7 @@ class SharedGridWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(top: 30, right: 30, bottom: 0, left: 30),
       child: Stack(
+        alignment: Alignment.bottomCenter,
         children: [
           GridView.builder(
               controller: scrollController,
@@ -54,7 +57,7 @@ class SharedGridWidget extends StatelessWidget {
                       ),
                     ),
                   )),
-          isLoading ? const CircularProgressIndicator() : Container()
+          isLoading ? const ProgressIndication() : Container()
         ],
       ),
     );

@@ -79,7 +79,7 @@ class HomeView extends StatelessWidget {
                     : SharedGridWidget(
                         wallpapers: controller.popularList,
                         scrollController: controller.popularScrollController,
-                        isLoading: false,
+                        isLoading: controller.bottomstate,
                       );
               },
             ),
@@ -93,7 +93,7 @@ class HomeView extends StatelessWidget {
                     : SharedGridWidget(
                         wallpapers: controller.oldestList,
                         scrollController: controller.oldestScrollController,
-                        isLoading: false,
+                        isLoading: controller.bottomstate,
                       );
               },
             ),

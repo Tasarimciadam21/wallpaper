@@ -29,12 +29,13 @@ class OldestController extends BaseController {
   }
 
   Future<void> addMoreDataToTodaysList() async {
+    setBottomState(true);
     List<Wallpaper> wallpapers = [];
     wallpapers = await _restApiService
         .convertJsonToObject(api + "&page=$oldestPageNumber&order_by=oldest");
     oldestPageNumber++;
     oldestList.addAll(wallpapers);
-    update();
+    setBottomState(false);
   }
 
   @override
@@ -43,4 +44,10 @@ class OldestController extends BaseController {
     loadMoreData();
     super.onInit();
   }
+
+  // @override
+  // void onClose() {
+  //   oldestScrollController.dispose();
+  //   super.onClose();
+  // }
 }

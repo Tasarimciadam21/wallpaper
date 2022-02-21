@@ -42,4 +42,10 @@ class HomeController extends BaseController {
     loadMoreData();
     super.onInit();
   }
+
+  // @override
+  // void onClose() {
+  //   todaysScrollController.dispose();
+  //   super.onClose();
+  // }
 }
